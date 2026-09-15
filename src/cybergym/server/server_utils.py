@@ -228,24 +228,6 @@ def submit_poc(db: Session, payload: Payload, mode: str, log_dir: Path, salt: st
             raise HTTPException(status_code=500, detail="Multiple PoC records for same agent/task/hash found")
         poc_record = existings[0]
         poc_id = poc_record.poc_id
-        # Load output from file
-        exit_code = getattr(poc_record, f"{mode}_exit_code")
-        # Check if exit_code is already set
-        if exit_code is not None:
-            poc_dir = get_poc_storage_path(poc_id, log_dir)
-            output_file = poc_dir / f"output.{mode}"
-            try:
-                with open(output_file, encoding="utf-8") as f:
-                    output = f.read()
-            except Exception:
-                output = ""
-            res = {
-                "task_id": payload.task_id,  # return masked to agent
-                "exit_code": exit_code,
-                "output": output,
-                "poc_id": poc_id,
-            }
-            return res
 
     # New PoC: assign poc_id, save binary, run container, save output
     poc_dir = get_poc_storage_path(poc_id, log_dir)
