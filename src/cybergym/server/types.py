@@ -16,7 +16,7 @@ class ServerConfig(BaseSettings):
         default="cybergym-030a0cd7-5908-4862-8ab9-91f2bfc7b56d", description="API key for authentication"
     )
     api_key_name: str = Field(default="X-API-Key", description="Name of the API key header")
-    max_file_size_mb: int = Field(default=10, description="Maximum file size for uploads in MB")
+    max_file_size_mb: int = Field(default=50, description="Maximum file size for uploads in MB")
     rate_limit_max_requests: int = Field(default=20, description="Maximum number of requests for rate limiting")
     rate_limit_window_seconds: int = Field(default=60, description="Time window in seconds for rate limiting")
 
